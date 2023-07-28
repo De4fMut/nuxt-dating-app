@@ -1,72 +1,106 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 module.exports = {
-  mode: 'universal',
+  mode: "universal",
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: "%s - " + process.env.npm_package_name,
+    title: process.env.npm_package_name || "",
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        hid: "description",
+        name: "description",
+        content: process.env.npm_package_description || "",
+      },
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    ],
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
   /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
+   ** Customize the progress-bar color
+   */
+  loading: { color: "#fff" },
   /*
-  ** Global CSS
-  */
-  css: [
-  ],
+   ** Global CSS
+   */
+  css: [],
   /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   */
   plugins: [
-    { src: '~/plugins/socket.client.js' },
-    { src: '~/plugins/vuetify.js' },
+    { src: "~/plugins/socket.client.js" },
+    '~/plugins/axios.client'
+    // { src: '~/plugins/vuetify.js' },
   ],
   /*
-  ** Nuxt.js dev-modules
-  */
+   ** Nuxt.js dev-modules
+   */
   buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    // "@nuxtjs/eslint-module",
+    "@nuxtjs/vuetify",
+    [
+      "@nuxtjs/dotenv",
+      {
+        systemvars: true,
+      },
+    ],
   ],
+
+  vuetify: {
+    optionsPath: "~/vuetify.options.js",
+  },
   /*
-  ** Nuxt.js modules
-  */
-  modules: [
-    '@nuxtjs/pwa',
-  ],
+   ** Nuxt.js modules
+   */
+  modules: ["@nuxtjs/pwa", "@nuxtjs/axios", "@nuxtjs/auth-next"],
+
+  axios: {
+    baseURL: process.env.API_URL,
+    browserBaseURL: process.env.CLIENT_URL,
+    credentials: true
+  },
 
   pwa: {
     manifest: {
-      name: 'Nuxt.js PWA nuxt-chat-app',
-      short_name: 'Nuxt.js PWA',
-      start_url: '/',
-      theme_color: '#424242',
-      display: 'standalone',
+      name: "Nuxt.js PWA nuxt-chat-app",
+      short_name: "Nuxt.js PWA",
+      start_url: "/",
+      theme_color: "#424242",
+      display: "standalone",
     },
     icon: {
-      iconSrc: './static/favicon.ico',
+      iconSrc: "./static/favicon.ico",
     },
   },
   /*
-  ** vuetify module configuration
-  ** https://github.com/nuxt-community/vuetify-module
-  */
+   ** vuetify module configuration
+   ** https://github.com/nuxt-community/vuetify-module
+   */
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
+
+  env: {
+    DB_URL: process.env.DB_URL,
+    JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
+    JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
+    SMTP_HOST: process.env.SMTP_HOST,
+    SMTP_PORT: process.env.SMTP_PORT,
+    SMTP_USER: process.env.SMTP_USER,
+    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
+    API_URL: process.env.API_URL,
+    CLIENT_URL: process.env.CLIENT_URL,
+  },
+
   build: {
     /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-    },
+     ** You can extend webpack config here
+     */
+    extend(config, ctx) {},
   },
 };

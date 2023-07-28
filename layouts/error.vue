@@ -1,13 +1,13 @@
 <template>
   <v-app>
-    <v-content>
+    <v-main>
       <v-container
         fluid
         style="height: 100%"
       >
         <h1>Page not found</h1>
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

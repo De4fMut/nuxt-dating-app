@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-wrapper">
+  <v-container class="chat-wrapper">
     <div
       ref="chat"
       class="chat"
@@ -26,23 +26,23 @@
     <div class="chat__form">
       <ChatForm />
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import Message from "@/components/Message";
 import ChatForm from "@/components/ChatForm";
 
 export default {
   name: "ChatPage",
-  layout: "chat",
+  // layout: "chat",
   components: {
     Message,
     ChatForm,
   },
   computed: {
-    ...mapState(["user", "messages", "users"]),
+    ...mapGetters(["user", "messages", "users"]),
     ...mapGetters(["typingUsers"]),
   },
   watch: {
@@ -58,6 +58,9 @@ export default {
     return {
       title: `Room ${this.user.room}`,
     };
+  },
+  mounted() {
+    console.log(this.$route.name)
   },
 };
 </script>

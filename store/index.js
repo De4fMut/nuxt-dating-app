@@ -1,4 +1,5 @@
 export const state = () => ({
+  token: null,
   user: {},
   messages: [],
   users: [],
@@ -7,6 +8,15 @@ export const state = () => ({
 export const getters = {
   typingUsers: ({ users, user }) => users.filter(({ typingStatus, id }) => typingStatus && user.id !== id),
   typingStatus: ({ user }) => user.typingStatus,
+  user(state){
+    return state.user
+  },
+  users(state){
+    return state.users
+  },
+  messages(state){
+    return state.messages
+  }
 };
 
 export const mutations = {

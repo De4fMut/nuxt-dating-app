@@ -1,8 +1,8 @@
 {
   "name": "nuxt-chat-app",
   "version": "1.0.0",
-  "description": "Simple chat on Nuxt.js",
-  "author": "Petr Borul",
+  "description": "Знакомства через добрые дела",
+  "author": "deamut",
   "private": false,
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
@@ -12,18 +12,31 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "@nuxtjs/auth-next": "^5.0.0-1667386184.dfbbb54",
+    "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "cross-env": "^5.2.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.1",
+    "mongodb": "^5.7.0",
+    "mongoose": "^7.4.0",
+    "nodemailer": "^6.9.4",
     "nuxt": "^2.12.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "socket.io": "^2.5.0",
-    "vue-socket.io": "^3.0.9",
-    "vuetify": "^2.6.10"
+    "uuid": "^9.0.0",
+    "vue-socket.io": "^3.0.9"
   },
   "devDependencies": {
     "@mdi/font": "^5.2.45",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/vuetify": "^1.12.3",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",

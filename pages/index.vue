@@ -1,108 +1,187 @@
 <template>
-  <v-row
-    no-gutters
-    align="center"
-    justify="center"
+  <div
+    class="splash__wrapper"
+    :style="slide__wrapper"
+    @click="changeClassAndNextPage"
   >
-    <v-col cols="auto">
-      <v-card
-        min-width="290"
-        color="#424242"
-      >
-        <Snackbar
-          v-model="snackbar"
-          :text="message"
-        />
-
-        <v-card-title>
-          <h2>Login</h2>
-        </v-card-title>
-        <v-card-text>
-          <v-form
-            ref="form"
-            v-model="isValid"
-            lazy-validation
-            @submit.prevent="submit"
-          >
-            <v-text-field
-              v-model="user.name"
-              :counter="16"
-              :rules="nameRules"
-              label="Name"
-              required
-            />
-            <v-text-field
-              v-model="user.room"
-              :counter="16"
-              :rules="roomRules"
-              label="Enter the room"
-              required
-            />
-            <v-btn
-              :disabled="!isValid"
-              color="primary"
-              class="mt-3"
-              type="submit"
-            >
-              Submit
-            </v-btn>
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-row>
+    <div class="splash" :style="slide">
+      <Logo />
+    </div>
+    <p>sometext + {{ test }} </p>
+  </div>
 </template>
 
+<style>
+.splash__wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  background-image: linear-gradient(0deg, rgba(166, 192, 254, .8) 0%, rgba(246, 128, 132, .8) 100%);
+  overflow: hidden;
+  /* background-image: url("@/static/bgi.png");
+  background-size: cover;
+  background-repeat: no-repeat; */
+}
+.splash {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* .slideIn {
+    animation-duration: 4s;
+    animation-name: slidein;
+} */
+
+/* .slideOut {
+    animation-duration: 4s;
+    animation-name: slideout;
+    top: -100%;
+} */
+
+@keyframes bgin {
+  /* from {
+    top: 0%;
+  }
+
+  to {
+    top: -4%;
+  } */
+
+  0% {
+    opacity: 0;
+  }
+}
+
+@keyframes bgout {
+  /* from {
+    top: -4%;
+  }
+
+  to {
+    top: -0%;
+  } */
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes kfSlideout {
+  /* from {
+    margin-top: 0%;
+    top: 4%;
+  }
+
+  to {
+    margin-top: -100%;
+    top: -100%;
+  } */
+
+  100% {
+    opacity: 0;
+  }
+}
+</style>
+
 <script>
-import { mapActions } from "vuex";
-import Snackbar from "@/components/Snackbar";
-import messageDict from "@/lib/messageDict";
+import Logo from '@/components/Logo.vue'
 
 export default {
-  name: "Home",
-  layout: "login",
-  components: {
-    Snackbar,
+  components:{Logo},
+  layout: "empty",
+  // sockets: {
+  //     connect() {
+  //         console.log("connected io");
+  //     },
+  // },
+  data() {
+    return {
+      isActive: false,
+      animationDuration: 1000,
+      test: null
+    }
   },
-  data: () => ({
-    isValid: true,
-    user: {
-      name: "",
-      room: "",
-      typingStatus: false,
-    },
-    nameRules: [
-      v => !!v || "Name is required",
-      v => (v && v.length <= 16) || "Name must be less than 16 characters",
-    ],
-    roomRules: [
-      v => !!v || "Enter the room",
-      v => (v && v.length <= 16) || "Room must be less than 16 characters",
-    ],
-    snackbar: false,
-  }),
+  // async asyncData ({ $axios }) {
+  //   const data = await $axios.$get('/api/users')
+  //   return { test: data }
+  // },
   computed: {
-    message() {
-      const { message } = this.$route.query;
-      return messageDict[message] || "";
-    },
-  },
-  mounted() {
-    this.snackbar = !!this.message;
-  },
-
-  methods: {
-    ...mapActions(["createUser"]),
-    submit() {
-      if (this.$refs.form.validate()) {
-        this.createUser(this.user);
-        this.$router.push("/chat");
+    slide() {
+      if (this.isActive) {
+        return {
+          animationDuration: this.animationDuration + "ms",
+          animationName: "kfSlideout",
+        };
       }
     },
+    slide__wrapper() {
+      if (!this.isActive) {
+        return {
+          animationDuration: this.animationDuration + "ms",
+          animationName: "bgin",
+        };
+      }
+      return {
+        animationDuration: this.animationDuration + "ms",
+        animationName: "bgout",
+      };
+    },
   },
+  methods: {
+    changeClassOnClick() {
+      this.isActive = true;
+    },
+    nextPage() {
+      setTimeout(() => {
+        this.$router.push("/auth");
+      }, this.animationDuration - 1000);
+    },
+    changeClassAndNextPage() {
+      this.changeClassOnClick(), this.nextPage();
+    },
+    // async getMessage() {
+    //     this.messageRxd = await this.socket.emitP("getMessage", {
+    //         id: "abc123",
+    //     });
+    // },
 
-  head: {
-    title: "nuxt-chat-app",
+    // socket() {
+    //     this.socket.emit("connected", () => {
+    //         console.log("connect success");
+    //     });
+    // },
+    async get(){
+      this.$axios.get('/api/users')
+        .then(response => {
+          // Обработка успешного ответа
+          console.log(response);
+        })
+        .catch(error => {
+          // Обработка ошибки
+          console.error(error);
+        });
+    }
+  },
+  mounted() {
+    // this.socket = this.$nuxtSocket({
+    //     // nuxt-socket-io opts:
+    //     name: "main", // Use socket "home"
+    //     channel: "/index", // connect to '/index'
+    //     // socket.io-client opts:
+    //     reconnection: false,
+    // });
+
+    this.get()
   },
 };
 </script>

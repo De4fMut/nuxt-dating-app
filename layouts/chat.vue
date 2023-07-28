@@ -3,7 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       app
-      mobile-break-point="650"
+      mobile-break="650"
       color="$accent"
     >
       <v-list subheader>
@@ -48,19 +48,19 @@
       </v-btn>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <v-container
         fluid
         style="height: 100%;"
       >
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "ChatLayout",
@@ -68,7 +68,7 @@ export default {
     drawer: true,
   }),
   computed: {
-    ...mapState(["user", "users"]),
+    ...mapGetters(["user", "users"]),
   },
   middleware: "auth",
   created() {
@@ -77,8 +77,8 @@ export default {
   methods: {
     ...mapActions(["joinRoom", "leftRoom"]),
     exit() {
-      this.leftRoom();
-      this.$router.push("/?message=leftChat");
+      // this.leftRoom();
+      this.$router.push("/main");
     },
   },
 };
