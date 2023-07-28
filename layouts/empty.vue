@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-btn absolute style="z-index: 2;" width="200px" @click="themeToggle"> Change Theme </v-btn>
+    <v-btn rounded absolute style="z-index: 2; left: 2vw; top: 2vw;"  @click="themeToggle"> <v-icon>mdi-invert-colors</v-icon> </v-btn>
     <v-main>
         <Nuxt />
     </v-main>

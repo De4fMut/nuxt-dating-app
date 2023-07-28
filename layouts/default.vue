@@ -5,8 +5,8 @@
     elevation="4"
     clipped-left
     ></v-app-bar> -->
-    <v-btn right absolute style="z-index: 2" width="200px" @click="themeToggle">
-      Change Theme
+    <v-btn rounded right absolute style="z-index: 2;left: 2vw; top: 2vw;" @click="themeToggle">
+      <v-icon>mdi-invert-colors</v-icon>
     </v-btn>
     <NavigationDrawer />
     <v-main class="mr-14">

@@ -84,7 +84,7 @@
     >
     <v-row justify="center">
       <v-col cols="auto">
-       <v-btn nuxt to="/login" plain>Sign in</v-btn> 
+       <v-btn nuxt to="/auth/registration" plain>Sign in</v-btn> 
       </v-col>
     </v-row>
     <!-- </div> -->
@@ -183,7 +183,7 @@ export default {
         if (this.tier == "dialog") {
           this.dialog = true;
         }
-      } else this.$router.push("/login");
+      } else this.$router.push("/auth/registration");
     },
     dialogChange(value) {
       this.dialog = value;
@@ -210,7 +210,7 @@ export default {
     //   console.log(this.profileData);
     // },
     async postProfileData() {
-      const res = await this.$axios.$post("/auth", this.profileData);
+      const res = await this.$axios.$post("/api/auth", this.profileData);
       this.res = res;
       console.log(res);
     },

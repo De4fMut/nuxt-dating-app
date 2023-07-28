@@ -19,9 +19,9 @@
       <v-col md="7" xs="12">
         <v-row justify="end">
           <v-col cols="8">
-            <v-form v-model="isValid" lazy-validation>
+            <v-form ref="form" v-model="isValid" lazy-validation>
               <Registration
-                :isValid="isValid"
+                
                 :user="user"
                 :profileData="profileData"
               />
@@ -35,7 +35,7 @@
     </v-row>
     <v-row justify="center"
       ><v-col cols="auto">
-        <v-btn :disabled="!isValid" @click.prevent="submit">войти</v-btn>
+        <v-btn :disabled="!isValid" @click="submit">войти</v-btn>
       </v-col></v-row
     >
     {{ user }}
@@ -57,6 +57,7 @@ export default {
   },
 
   layout: "empty",
+  
   data() {
     return {
       isValid: true,
@@ -93,11 +94,11 @@ export default {
     },
     ...mapActions(["createUser"]),
     submit() {
-      // if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate()) {
       this.createUser(this.profileData);
       this.$router.push("/main");
       // console.log(this.user[Object.keys(this.user)[1]]);
-      // }
+      }
     },
   },
   mounted() {

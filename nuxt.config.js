@@ -64,6 +64,35 @@ module.exports = {
     browserBaseURL: process.env.CLIENT_URL,
     credentials: true
   },
+  auth: {
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        token: {
+          property: 'accessToken',
+          maxAge: 900,
+          global: true,
+          // type: 'Bearer'
+        },
+        refreshToken: {
+          property: 'refreshToken',
+          data: 'refreshToken',
+          maxAge: 60 * 60 * 24 * 30
+        },
+        user: {
+          property: 'user',
+         autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/api/login', method: 'post' },
+          refresh: { url: '/api/refresh', method: 'get' },
+          user: { url: '/api/user', method: 'get' },
+          logout: { url: '/api/logout', method: 'post' }
+        },
+        autoLogout: true
+      }
+    }
+  },
 
   pwa: {
     manifest: {

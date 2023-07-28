@@ -143,7 +143,7 @@ export default {
     },
     nextPage() {
       setTimeout(() => {
-        this.$router.push("/auth");
+        this.$router.push("/auth/welcome");
       }, this.animationDuration - 1000);
     },
     changeClassAndNextPage() {
