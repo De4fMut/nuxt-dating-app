@@ -78,13 +78,16 @@
     </v-row>
     <v-row justify="center"
       ><v-col cols="auto">
-        <v-btn @click="nextTier">войти</v-btn>
+        <v-btn @click="nextTier">далее</v-btn>
         <v-btn @click="log">log</v-btn>
       </v-col></v-row
     >
     <v-row justify="center">
       <v-col cols="auto">
-       <v-btn nuxt to="/auth/registration" plain>Sign in</v-btn> 
+       <v-btn nuxt to="/auth/Login" plain>войти</v-btn> 
+      </v-col>
+      <v-col cols="auto">
+       <v-btn nuxt to="/auth/registration" plain>Регистрация</v-btn> 
       </v-col>
     </v-row>
     <!-- </div> -->

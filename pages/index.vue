@@ -181,7 +181,7 @@ export default {
     //     reconnection: false,
     // });
 
-    this.get()
+    // this.get()
   },
 };
 </script>

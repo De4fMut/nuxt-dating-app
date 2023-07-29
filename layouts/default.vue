@@ -5,7 +5,7 @@
     elevation="4"
     clipped-left
     ></v-app-bar> -->
-    <v-btn rounded right absolute style="z-index: 2;left: 2vw; top: 2vw;" @click="themeToggle">
+    <v-btn rounded right absolute style="z-index: 2;right: 2vw; top: 2vw;" @click="themeToggle">
       <v-icon>mdi-invert-colors</v-icon>
     </v-btn>
     <NavigationDrawer />

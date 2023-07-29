@@ -10,7 +10,7 @@
         <v-row justify="center">
           <v-col cols="8">
             <v-form ref="form" v-model="isValid" lazy-validation>
-              <Login :user="user" :profileData="profileData" />
+              <Login :postBody="postBody" />
             </v-form>
           </v-col>
         </v-row>
@@ -18,11 +18,10 @@
     </v-row>
     <v-row justify="center"
       ><v-col cols="auto">
-        <v-btn :disabled="!isValid" @click="submit">войти</v-btn>
+        <v-btn :disabled="!isValid" @click="postt">войти</v-btn>
       </v-col></v-row
     >
-    {{ user }}
-    {{ profileData }}
+    {{ postBody }}
   </v-container>
 </template>
 
@@ -44,9 +43,8 @@ export default {
     return {
       isValid: true,
       postBody: {
-        id: null,
-        login: null,
         email: null,
+        password: null,
       },
       profileData: {
         gender: "",
@@ -55,7 +53,7 @@ export default {
         targetHeight: "",
         targetWeight: "",
         name: "",
-        typingStatus: false,
+        // typingStatus: false,
 
         birthDay: new Date(2000, 0, 2).toISOString().substr(0, 10),
         // Date.now() - new Date().getTimezoneOffset() * 60000
@@ -70,10 +68,27 @@ export default {
   },
   methods: {
     async postUser() {
-      const res = await this.$axios.$post("/login", this.postBody);
-      this.res = res;
-      console.log(res);
+      if (this.$refs.form.validate()) {
+        const res = await this.$axios.$post("/api/login", this.postBody);
+        this.createUser(res.user);
+        this.$router.push("/main");
+        console.log(res.user);
+      }
     },
+
+    async postt() {
+      try {
+        let response = await this.$auth.loginWith("local", {
+          data: this.postBody,
+        }).then(() => this.$toast.success('Logged In!'));
+        
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+
     ...mapActions(["createUser"]),
     submit() {
       if (this.$refs.form.validate()) {

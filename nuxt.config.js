@@ -33,7 +33,7 @@ module.exports = {
    */
   plugins: [
     { src: "~/plugins/socket.client.js" },
-    '~/plugins/axios.client'
+    // '~/plugins/axios.client'
     // { src: '~/plugins/vuetify.js' },
   ],
   /*
@@ -81,7 +81,7 @@ module.exports = {
         },
         user: {
           property: 'user',
-         autoFetch: true
+        //  autoFetch: true
         },
         endpoints: {
           login: { url: '/api/login', method: 'post' },
@@ -89,8 +89,14 @@ module.exports = {
           user: { url: '/api/user', method: 'get' },
           logout: { url: '/api/logout', method: 'post' }
         },
-        autoLogout: true
+        // autoLogout: true
       }
+    },
+    redirect: {
+      login: '/auth/login',
+      logout: '/',
+      // callback: '/login',
+      home: '/main'
     }
   },
 

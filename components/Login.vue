@@ -2,19 +2,21 @@
     <v-container>
   
       <v-text-field
-        v-model="email"
+        v-model="postBody.email"
         :rules="emailRules"
         label="E-mail"
         required
       ></v-text-field>
   
       <v-text-field
-        v-model="password"
-        
-        :rules="passwordRules"
-        label="Пароль"
-        required
-      ></v-text-field>
+      v-model="postBody.password"
+      :type="show ? 'text' : 'password'"
+      :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+      @click:append="show = !show"
+      :rules="passwordRules"
+      label="Пароль"
+      required
+    />
   
       <!-- <v-checkbox
         v-model="checkbox"
@@ -30,7 +32,14 @@
 <script>
   export default {
     layout: 'empty',
+    props:{
+      postBody:{
+        type: Object,
+        required: true
+      }
+    },
     data: () => ({
+      show: false,
       valid: true,
       password: '',
       passwordRules: [

@@ -238,7 +238,7 @@ export default {
     },
   },
   mounted() {
-    this.getPath();
+    // this.getPath();
   },
 };
 </script>
