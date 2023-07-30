@@ -173,18 +173,25 @@
       <v-btn v-if="mini == false" icon @click.stop="mini = !mini">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
+
+      <UserConfig v-if="mini == false && page == 'chat'"/>
     </v-row>
   </v-navigation-drawer>
 </template>
 
 <script>
+import UserConfig from '@/components/UserConfig'
+
 export default {
+  components:{
+    UserConfig
+  },
   data: () => ({
     page: null,
     items: [
       { title: "Home", icon: "mdi-home", src: "/main" },
       { title: "My Account", icon: "mdi-account", src: "/chat" },
-      { title: "Users", icon: "mdi-account-group-outline", src: "/main" },
+      { title: "Users", icon: "mdi-account-group-outline", src: "/communities" },
     ],
     pairs: [
       {
