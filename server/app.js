@@ -1,18 +1,28 @@
 const app = require("express")();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-
+const userController = require("./controllers/user-controller");
 const usersDB = require("../utils/users")();
 const Message = require("../models/Message")();
+const ApiError = require("./exceptions/api-error");
+
 
 io.on("connection", (socket) => {
   socket.on("createUser", (user) => {
-    usersDB.addUser({
-      ...user,
-      id: socket.id,
-    });
+    // if(user.lenght == null){
+      try{
+        usersDB.addUser({
+          ...user,
+          // id: socket.id,
+        });
+    
+        return { id: user.id };
+    } catch(e) {
+      console.log(e)
+      throw ApiError.UnauthorizedError();
+    }
 
-    return { id: socket.id };
+    
   });
 
   socket.on("joinRoom", ({ name, room }) => {

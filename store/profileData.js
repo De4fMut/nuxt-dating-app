@@ -61,6 +61,9 @@ export const state = () => ({
         state.profileData.gender = state.profileDataTemplate.gender.value[index]
         console.log(index)
       },
+      setProfile(state, data){
+        state.profileData = data
+      },
       updateProfileData(state, data){
         state.profileData[data.tier] = data.upd
         console.log(state.profileData[data.tier])
@@ -74,5 +77,8 @@ export const state = () => ({
       const res = { data: 10 };
       state.counter = res.data;
       return res.data;
+    },
+    async setProfileData({commit}, data){
+      await commit('setProfile', data)
     }
   }

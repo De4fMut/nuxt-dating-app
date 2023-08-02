@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueSocketIO from 'vue-socket.io';
-import store from '../store';
+// import store from '../store';
 import io from 'socket.io-client';
 
-const socketInstance = io('/', {
+const socketInstance = io('http://localhost:3000', {
   rejectUnauthorized: false,
   reconnection: true,
   reconnectionDelay: 1000,
@@ -13,7 +13,7 @@ const socketInstance = io('/', {
 
 export default ({ store }) => {
   Vue.use(new VueSocketIO({
-    debug: false,
+    debug: true,
     connection: socketInstance,
     vuex: {
       store,
@@ -22,3 +22,14 @@ export default ({ store }) => {
     },
   }));
 };
+
+// Vue.use(new VueSocketIO({
+//   debug: true,
+//   connection: 'http://metinseylan.com:1992',
+//   vuex: {
+//       store,
+//       actionPrefix: 'SOCKET_',
+//       mutationPrefix: 'SOCKET_'
+//   },
+//   options: { path: "/my-app/" } //Optional options
+// }))

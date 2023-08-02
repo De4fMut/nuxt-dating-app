@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState, mapMutations, mapActions } from "vuex";
 import Message from "@/components/Message";
 import ChatForm from "@/components/ChatForm";
 
@@ -42,8 +42,17 @@ export default {
     ChatForm,
   },
   computed: {
-    ...mapGetters(["user", "messages", "users"]),
+    ...mapState(["user", "messages", "users"]),
     ...mapGetters(["typingUsers"]),
+  },
+  middleware: "auth",
+  
+  methods: {
+    ...mapActions(["joinRoom", "leftRoom"]),
+    exit() {
+      // this.leftRoom();
+      this.$router.push("/main");
+    },
   },
   watch: {
     messages() {
@@ -60,8 +69,9 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route.name)
+    // console.log(this.$route.name)
   },
+  
 };
 </script>
 

@@ -96,7 +96,7 @@
           class="rounded-b-xl"
           style="background-color: rgba(0, 0, 0, 0.56)"
         >
-          <v-row align="center" justify="center" dense>
+          <v-row v-if="!admin" align="center" justify="center" dense>
             <v-col cols="auto" v-for="(btn, index) in btns" :key="index">
               <v-btn :class="btn.size" outlined icon :color="btn.color">
                 <v-icon :color="btn.color">
@@ -168,5 +168,11 @@ export default {
       onboarding: 0,
     };
   },
+  props:{
+    admin:{
+      type: Boolean,
+      required: true
+    }
+  }
 };
 </script>

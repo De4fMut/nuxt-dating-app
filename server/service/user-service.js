@@ -112,7 +112,7 @@ class UserService {
     return {
       ...tokens,
       user: userDto,
-      // profileData: profileDto
+      profileData: profileDto
     };
   }
 

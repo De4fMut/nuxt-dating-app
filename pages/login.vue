@@ -29,7 +29,7 @@
 import Login from "@/components/Login";
 import Logo from "@/components/Logo";
 
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   components: {
@@ -80,16 +80,18 @@ export default {
       try {
         let response = await this.$auth.loginWith("local", {
           data: this.postBody,
-        }).then(() => this.$toast.success('Logged In!'));
-        
+        })
+        this.createUser(this.$auth.user);
+        this.setProfileData(response.data.profileData)
+        // this.$router.push("/main");
         console.log(response);
       } catch (err) {
         console.log(err);
       }
     },
+    // ...mapMutations([{setProfileData: "profileData/setProfileData"}]),
 
-
-    ...mapActions(["createUser"]),
+    ...mapActions({createUser: "createUser", setProfileData: "profileData/setProfileData"}),
     submit() {
       if (this.$refs.form.validate()) {
         this.createUser(this.profileData);
@@ -110,6 +112,7 @@ export default {
   },
   mounted() {
     console.log(this.postBody);
+    this.$auth.refreshTokens()
   },
 };
 </script>

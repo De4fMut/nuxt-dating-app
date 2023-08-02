@@ -1,5 +1,7 @@
 module.exports = class UserDto {
     email;
+    name;
+    room;
     id;
     login;
     isActivated;
@@ -7,6 +9,8 @@ module.exports = class UserDto {
 
     constructor(model) {
         this.email = model.email;
+        this.name = model.login;
+        this.room = 'test'
         this.id = model._id;
         this.login = model.login;
         this.typingStatus = false;

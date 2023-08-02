@@ -17,8 +17,8 @@
       </v-col>
     </v-row> -->
     <v-row v-if="tier != 'main'" justify="center">
-      <v-col cols="auto">
-        <v-card width="75vw" height="600px">
+      <v-col xs="11" sm="9" md="7">
+        <v-card width="" height="500px">
           <!-- <div class="auth__menu"> -->
           <v-row>
             <v-col>
@@ -35,7 +35,7 @@
               <AuthCard :tier="tier" :i="i" />
             </v-col>
           </v-row>
-          <v-card-actions class="btns">
+          <!-- <v-card-actions class="btns">
             <v-btn
               @click="
                 () => {
@@ -61,7 +61,7 @@
             >
               POST
             </v-btn>
-          </v-card-actions>
+          </v-card-actions> -->
           <!-- <v-row>
             <v-col>
               <div v-for="(item, index) in profileData" :key="index">
@@ -69,32 +69,36 @@
               </div>
             </v-col>
           </v-row> -->
+          <!-- <v-spacer></v-spacer> -->
           <v-card-actions>
-            <!-- btn next -->
+            <v-row justify="center"><v-col cols="auto">
+            <!-- <v-btn @click="nextTier">далее</v-btn> -->
+          </v-col></v-row>
           </v-card-actions>
           <!-- </div> -->
+          <v-btn absolute block style="bottom: 0; " @click="nextTier">далее</v-btn>
         </v-card>
       </v-col>
     </v-row>
-    <v-row justify="center"
-      ><v-col cols="auto">
-        <v-btn @click="nextTier">далее</v-btn>
-        <v-btn @click="log">log</v-btn>
-      </v-col></v-row
-    >
+    
+        
+        <!-- <v-btn @click="log">log</v-btn> -->
+     
     <v-row justify="center">
-      <v-col cols="auto">
-       <v-btn nuxt to="/auth/Login" plain>войти</v-btn> 
+      <!-- <v-col cols="4"> -->
+      <v-col class="d-flex justify-end" cols="">
+       <v-btn nuxt to="/login" plain>войти</v-btn> 
       </v-col>
-      <v-col cols="auto">
-       <v-btn nuxt to="/auth/registration" plain>Регистрация</v-btn> 
+      <v-col cols="">
+       <v-btn nuxt to="/registration" plain>Регистрация</v-btn> 
       </v-col>
+    <!-- </v-col> -->
     </v-row>
     <!-- </div> -->
     <Window :i="i" :dialog="dialog" @check-dialog="dialogChange" />
     <!-- </div> -->
     
-    <v-footer> © 2023 Знакомства через добрые дела </v-footer>
+    
   </v-container>
 </template>
 

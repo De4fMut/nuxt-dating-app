@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapState, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "ChatLayout",
@@ -68,7 +68,7 @@ export default {
     drawer: true,
   }),
   computed: {
-    ...mapGetters(["user", "users"]),
+    ...mapState(["user", "users"]),
   },
   middleware: "auth",
   created() {

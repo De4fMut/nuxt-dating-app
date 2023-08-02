@@ -1,5 +1,4 @@
 <template>
-  
   <v-container fill-height fluid align-center justify-center>
     <v-row justify="center">
       <v-col cols="auto">
@@ -11,11 +10,7 @@
         <v-row justify="end">
           <v-col cols="8">
             <v-form ref="form" v-model="isValid" lazy-validation>
-              <Registration
-                
-                :user="user"
-                :profileData="profileData"
-              />
+              <Registration :user="user" :profileData="profileData" />
             </v-form>
           </v-col>
         </v-row>
@@ -38,7 +33,7 @@
 import Registration from "@/components/Registration";
 import Logo from "@/components/Logo";
 import Photos from "@/components/Photos.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   components: {
@@ -48,7 +43,7 @@ export default {
   },
 
   layout: "empty",
-  
+
   data() {
     return {
       isValid: true,
@@ -80,18 +75,36 @@ export default {
   methods: {
     async postUser() {
       if (this.$refs.form.validate()) {
-      const res = await this.$axios.$post("/api/registration", {user: this.user, profileData: this.profileData});
-      this.createUser(res.user);
-      this.$router.push("/main");
-      console.log(res.user);
+        const res = await this.$axios.$post("/api/registration", {
+          user: this.user,
+          profileData: this.profileData,
+        });
+        if (res.status == 200) {
+          try {
+        let response = await this.$auth.loginWith("local", {
+          data: this.postBody,
+        })
+        this.createUser(response.data.user);
+        this.setProfileData(response.data.profileData)
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+        }
       }
     },
-    ...mapActions(["createUser"]),
+
+    // ...mapMutations([{setProfileData: "profileData/setProfileData"}]),
+    ...mapActions({
+      createUser: "createUser",
+      setProfileData: "profileData/setProfileData",
+    }),
+    // ...mapActions(["createUser", {setProfileData: "profileData/setProfileData"}]),
     submit() {
       if (this.$refs.form.validate()) {
-      this.createUser(this.profileData);
-      this.$router.push("/main");
-      // console.log(this.user[Object.keys(this.user)[1]]);
+        this.createUser(this.profileData);
+        this.$router.push("/main");
+        // console.log(this.user[Object.keys(this.user)[1]]);
       }
     },
   },
@@ -100,3 +113,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+html{
+  overflow-y: scroll;
+}
+</style>

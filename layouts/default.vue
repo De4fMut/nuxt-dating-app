@@ -5,20 +5,29 @@
     elevation="4"
     clipped-left
     ></v-app-bar> -->
-    <v-btn rounded right absolute style="z-index: 2;right: 2vw; top: 2vw;" @click="themeToggle">
+    <!-- <v-btn
+      rounded
+      right
+      absolute
+      style="z-index: 2; right: 2vw; top: 2vw"
+      @click="themeToggle"
+    >
       <v-icon>mdi-invert-colors</v-icon>
-    </v-btn>
+    </v-btn> -->
     <NavigationDrawer />
-    <v-main class="mr-14">
-      <Nuxt />
+    <v-main :class="{'mr-14': $route.name == 'main' || 'users'}">
+      <!-- class="mr-14" -->
+      <v-container fluid style="height: 100%">
+        <nuxt />
+      </v-container>
     </v-main>
     <!-- <v-footer> </v-footer> -->
   </v-app>
 </template>
 
-<!-- <style>
-html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+<style scoped>
+/* html { */
+  /* font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
@@ -26,10 +35,11 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+  box-sizing: border-box; */
+  /* overflow: hidden; */
+/* } */
 
-*,
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -63,11 +73,11 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
-}
-</style> -->
+} */
+</style>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapMutations, mapActions, mapState } from "vuex";
 import NavigationDrawer from "@/components/NavigationDrawer.vue";
 
 export default {
@@ -78,14 +88,12 @@ export default {
     drawer: true,
   }),
   computed: {
-    ...mapGetters(["user", "users"]),
+    ...mapState(["user", "users"]),
   },
   middleware: "auth",
-  created() {
-    this.joinRoom(this.user);
-  },
+
   methods: {
-    ...mapActions(["joinRoom", "leftRoom"]),
+    ...mapActions(["joinRoom", "leftRoom", "createUser"]),
     exit() {
       // this.leftRoom();
       this.$router.push("/main");
@@ -93,6 +101,17 @@ export default {
     themeToggle() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
+
+    async fetch() {
+      if (!this.user.length) {
+      await this.createUser(this.$auth.user);
+      this.joinRoom(this.user);
+      }
+    },
+  },
+  mounted() {
+    this.fetch()
+    this.$auth.refreshTokens()
   },
 };
 </script>

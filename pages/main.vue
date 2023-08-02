@@ -7,8 +7,8 @@
     </v-row>
     <v-row justify="center">
       <v-col cols="auto">
-        <ProfileCard/>
-        <v-btn @click="push"></v-btn>
+        <ProfileCard :admin="admin"/>
+        <!-- <v-btn @click="push"></v-btn> -->
       </v-col>
     </v-row>
   </v-container>
@@ -30,10 +30,18 @@ export default {
       test: "main",
     };
   },
+  data() {
+    return {
+      admin: false
+    }
+  },
   methods: {
     push(){
       this.$router.push('/login')
     }
+  },
+  mounted() {
+    
   },
 };
 </script>

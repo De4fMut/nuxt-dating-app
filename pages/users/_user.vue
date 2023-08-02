@@ -7,7 +7,7 @@
     </v-row>
     <v-row justify="center">
       <v-col cols="auto">
-        <ProfileCard :user="user"/>
+        <ProfileCard :admin="admin" :user="user"/>
       </v-col>
     </v-row>
   </v-container>
@@ -16,7 +16,7 @@
 <script>
 import Logo from "@/components/Logo.vue";
 import ProfileCard from "@/components/ProfileCard.vue";
-import {mapGetters} from 'vuex'
+import {mapGetters, mapState} from 'vuex'
 
 export default {
   layout: "default",
@@ -24,8 +24,17 @@ export default {
     Logo,
     ProfileCard,
   },
+  async asyncData({ params }) {
+      const user = params.user // When calling /abc the slug will be "abc"
+      return { user }
+    },
+    data() {
+      return {
+        admin: true
+      }
+    },
   computed: {
-    ...mapGetters[{user: 'getUser'}]
+    ...mapState['user']
   },
 };
 </script>

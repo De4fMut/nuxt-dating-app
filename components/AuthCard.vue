@@ -124,17 +124,16 @@
               :rules="[(v) => !!v || 'You must agree to continue!']"
               required
             ></v-checkbox>
-
             <v-btn @click="submit" :disabled="!valid"> submit </v-btn>
             <v-btn @click="clear">clear</v-btn>
           </v-form>
         </template>
 
-        <v-row justify="center">
+        <!-- <v-row justify="center">
           <v-col cols="6">
             <v-card-text>{{ profileData }}</v-card-text>
           </v-col>
-        </v-row>
+        </v-row> -->
 
         <!--
         <script>

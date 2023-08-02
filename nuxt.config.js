@@ -32,7 +32,7 @@ module.exports = {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: "~/plugins/socket.client.js" },
+    { src: "~/plugins/socket.js", ssr: false },
     // '~/plugins/axios.client'
     // { src: '~/plugins/vuetify.js' },
   ],
@@ -70,7 +70,7 @@ module.exports = {
         scheme: 'refresh',
         token: {
           property: 'accessToken',
-          maxAge: 900,
+          maxAge: 800,
           global: true,
           // type: 'Bearer'
         },
@@ -93,7 +93,7 @@ module.exports = {
       }
     },
     redirect: {
-      login: '/auth/login',
+      login: '/main',
       logout: '/',
       // callback: '/login',
       home: '/main'

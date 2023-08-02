@@ -5,7 +5,14 @@
     @click="changeClassAndNextPage"
   >
     <div class="splash" :style="slide">
-      <Logo />
+      <!-- <v-container> -->
+        
+       <v-row justify="center" align="center"> 
+        <v-col >
+      <Logo width="300"/>
+    </v-col>
+    </v-row>
+    <!-- </v-container> -->
     </div>
     <p>sometext + {{ test }} </p>
   </div>
@@ -143,7 +150,7 @@ export default {
     },
     nextPage() {
       setTimeout(() => {
-        this.$router.push("/auth/welcome");
+        this.$router.push("/welcome");
       }, this.animationDuration - 1000);
     },
     changeClassAndNextPage() {

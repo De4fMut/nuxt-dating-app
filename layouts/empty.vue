@@ -7,7 +7,9 @@
     <!-- <v-footer>
       fooooooooter
     </v-footer> -->
+    <v-footer><v-row justify="center" class="ma-0"><v-col cols="auto">© 2023 Знакомства через добрые дела </v-col></v-row></v-footer>
   </v-app>
+  
 </template>
 
 <style>

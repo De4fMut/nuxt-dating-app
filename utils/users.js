@@ -22,6 +22,9 @@ class UsersDB {
   setTypingStatus(id, typingStatus) {
     const index = this.users.findIndex((user) => user.id === id);
     this.users[index].typingStatus = typingStatus;
+    // console.log(id)
+    // console.log(typingStatus)
+    // console.log(this.users)
   }
 }
 
