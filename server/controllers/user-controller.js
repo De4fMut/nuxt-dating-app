@@ -10,14 +10,14 @@ class UserController {
             if (!errors.isEmpty()){
                 return next(ApiError.BadRequest('Ошибка при валидации', errors.array()))
             }
-            const {login, email, password} = req.body.user;
+            const {login, email, name, password} = req.body.user;
             const {
                 gender,
                 targetGender,
                 purpose,
                 targetHeight,
                 targetWeight,
-                name,
+                // name,
                 birthDay} = req.body.profileData
             const userData = await userService.registration(login, email, password, gender,
                 targetGender,
@@ -88,7 +88,8 @@ class UserController {
 
     async getUsers(req, res, next){
         try {
-            const users = await userService.getAllUsers();
+            const accessToken = req.headers.authorization.split(' ')[1];
+            const users = await userService.getAllUsers(accessToken);
             return res.json(users)
         }catch(e) {
             next(e)

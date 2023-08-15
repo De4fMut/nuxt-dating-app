@@ -1,5 +1,7 @@
 export const state = () => ({
-  token: null,
+  rooms:[],
+  room: null,
+  currentUser:{},
   user: {},
   messages: [],
   users: [],
@@ -8,12 +10,21 @@ export const state = () => ({
 export const getters = {
   typingUsers: ({ users, user }) => users.filter(({ typingStatus, id }) => typingStatus && user.id !== id),
   typingStatus: ({ user }) => user.typingStatus,
-  // user(state){
-  //   return state.user
-  // },
-  // users(state){
-  //   return state.users
-  // },
+  user(state){
+    return state.user
+  },
+  users(state){
+    return state.users
+  },
+  room(state){
+    return state.room
+  },
+  rooms(state){
+    return state.rooms
+  },
+  currentUser(state){
+    return state.currentUser
+  }
   // messages(state){
   //   return state.messages
   // }
@@ -23,12 +34,24 @@ export const mutations = {
   setUser(state, user) {
     state.user = user;
   },
+  setRoom(state, room){
+    state.room = room
+  },
+  setRooms(state, rooms) {
+    state.rooms = rooms;
+  },
+  setCurrentUser(state, user){
+    state.currentUser = user
+  },
   SOCKET_newMessage(state, msg) {
     state.messages = [...state.messages, msg];
   },
   SOCKET_updateUsers(state, users) {
     state.users = users;
   },
+  // updateUsers(state, users) {
+  //   state.users = users;
+  // },
   clearData(state) {
     state.user = {};
     state.messages = [];
@@ -45,9 +68,13 @@ export const actions = {
   },
   createMessage({ dispatch, state }, msg) {
     const { user } = state;
+    const { room } = state;
     const payload = {
       msg,
-      id: user.id,
+      userId: user.id,
+      roomId: user.room,
+      name: user.name
+      // ДОБАВЬ ИМЯ ПОЛЬЗОВАТЕЛЯ ЕГО НЕТ В БД
     };
 
     dispatch("socketEmit", {
@@ -55,6 +82,14 @@ export const actions = {
       payload,
     });
   },
+  // SOCKET_updateUsers({state, dispatch, commit}, users) {
+  //   commit('updateUsers', users);
+  //   // dispatch('socketEmit', {
+  //   //   action: 'updateUsers',
+  //   //   payload: null
+  //   // })
+  //   // state.users = users;
+  // },
   joinRoom({ dispatch, state }) {
     const { user } = state;
 

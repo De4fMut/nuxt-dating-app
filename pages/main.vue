@@ -7,47 +7,66 @@
     </v-row>
     <v-row justify="center">
       <v-col cols="auto">
-        <ProfileCard :admin="admin"/>
-        <!-- <v-btn @click="push"></v-btn> -->
+        <v-window v-model="onboarding">
+          <v-window-item 
+          v-for="(user, index) in users" 
+          :key="index"
+          >
+            <ProfileCard :admin="admin" :user="currentUser"/>
+          </v-window-item>
+          <v-btn @click="n">x</v-btn>
+        </v-window>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import Logo from '@/components/Logo.vue'
-import ProfileCard from '@/components/ProfileCard.vue'
+import Logo from "@/components/Logo.vue";
+import ProfileCard from "@/components/ProfileCard.vue";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   layout: "default",
-  components:{
+  name: 'Main',
+  components: {
     Logo,
-    ProfileCard
+    ProfileCard,
   },
-  async asyncData({}) {
-    // const test = await $axios.$get('/api/test')
+  async asyncData({ $axios }) {
+    const users = await $axios.$get("/api/users");
     return {
-      test: "main",
+      users,
     };
   },
   data() {
     return {
-      admin: false
-    }
+      admin: false,
+      onboarding: 1,
+    };
   },
   methods: {
-    push(){
-      this.$router.push('/login')
+    ...mapMutations(["setCurrentUser"]),
+    push() {
+      this.$router.push("/login");
+    },
+    n(){
+      ++this.onboarding
+      this.setCurrentUser(this.users[this.onboarding-1])
+      console.log(this.onboarding)
     }
   },
+  computed: {
+    ...mapGetters(["currentUser"]),
+  },
   mounted() {
-    
+    this.setCurrentUser(this.users[this.onboarding-1])
+    console.log(this.users);
   },
 };
 </script>
 
 <style scoped>
-
 .title {
   font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;

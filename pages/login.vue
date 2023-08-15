@@ -22,6 +22,11 @@
       </v-col></v-row
     >
     {{ postBody }}
+    <!-- <v-row justify="center">
+      <v-col cols=""> -->
+       <v-btn absolute style="bottom: 0; right: 0" nuxt to="/registration" plain>Регистрация</v-btn> 
+      <!-- </v-col>
+    </v-row> -->
   </v-container>
 </template>
 
@@ -32,6 +37,7 @@ import Logo from "@/components/Logo";
 import { mapActions, mapMutations } from "vuex";
 
 export default {
+  auth: 'guest',
   components: {
     Login,
     Logo,
@@ -84,6 +90,7 @@ export default {
         this.createUser(this.$auth.user);
         this.setProfileData(response.data.profileData)
         // this.$router.push("/main");
+        console.log(response.data.profileData)
         console.log(response);
       } catch (err) {
         console.log(err);

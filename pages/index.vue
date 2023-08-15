@@ -104,6 +104,7 @@
 import Logo from '@/components/Logo.vue'
 
 export default {
+  auth: 'guest',
   components:{Logo},
   layout: "empty",
   // sockets: {

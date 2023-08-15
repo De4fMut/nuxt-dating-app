@@ -70,7 +70,7 @@ export default {
   computed: {
     ...mapState(["user", "users"]),
   },
-  middleware: "auth",
+  // middleware: "auth",
   created() {
     this.joinRoom(this.user);
   },

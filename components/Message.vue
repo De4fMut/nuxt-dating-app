@@ -8,6 +8,7 @@
       class="text-center font-italic system"
     >
       {{ message.text }}
+      
     </p>
     <v-col
       v-else
@@ -23,6 +24,7 @@
           <span class="font-weight-bold">{{ message.name }}</span>
           <p class="mb-0">
             {{ message.text }}
+            {{ message }}
           </p>
         </v-col>
         <v-col cols="auto">

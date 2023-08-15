@@ -6,7 +6,8 @@ module.exports = class ProfileDto {
   targetHeight;
   targetWeight;
   name;
-  birthDay;
+ 
+  // birthDay;
 
   constructor(model) {
     // this.userId = model.userId;
@@ -16,6 +17,7 @@ module.exports = class ProfileDto {
     this.targetHeight = model.targetHeight;
     this.targetWeight = model.targetWeight;
     this.name = model.name;
-    this.birthDay = model.birthDay;
+    
+    // this.birthDay = model.birthDay;
   }
 };

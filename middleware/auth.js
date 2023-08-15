@@ -1,5 +1,5 @@
-export default function({ store, redirect }) {
-  if(Object.keys(store.state.user).length < 1) {
-    redirect('/?message=noUser');
+export default function({ $auth, redirect }) {
+  if(!this.$auth.loggedIn) {
+    redirect('/login');
   }
 }

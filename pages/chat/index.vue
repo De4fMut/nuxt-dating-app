@@ -1,6 +1,6 @@
 <template>
   <v-container class="chat-wrapper">
-    <div
+    <!-- <div
       ref="chat"
       class="chat"
     >
@@ -25,7 +25,10 @@
     </div>
     <div class="chat__form">
       <ChatForm />
-    </div>
+    </div> -->
+<v-app-bar>
+    <v-app-bar-title>Выберите чат с пользователем в боковой панели</v-app-bar-title>
+  </v-app-bar>
   </v-container>
 </template>
 
@@ -42,17 +45,33 @@ export default {
     ChatForm,
   },
   computed: {
-    ...mapState(["user", "messages", "users"]),
-    ...mapGetters(["typingUsers"]),
+    ...mapState(["user", "messages"]),
+    ...mapGetters(["typingUsers", 'users']),
   },
   middleware: "auth",
   
   methods: {
-    ...mapActions(["joinRoom", "leftRoom"]),
+    ...mapActions(["joinRoom", "leftRoom", ]),
+    ...mapMutations(['setRooms', 'setRoom']),
     exit() {
       // this.leftRoom();
       this.$router.push("/main");
     },
+    async getRooms(){
+      console.log(this.$auth.user.id)
+      const response = await this.$axios
+        .post("/api/rooms", { user1Id: this.$auth.user.id})
+        .then((response) => {
+          // Обработка успешного ответа
+          this.setRooms(response.data)
+          console.log(response);
+        })
+        .catch((error) => {
+          // Обработка ошибки
+          console.error(error);
+        });
+      
+    }
   },
   watch: {
     messages() {
@@ -69,7 +88,7 @@ export default {
     };
   },
   mounted() {
-    // console.log(this.$route.name)
+    this.getRooms()
   },
   
 };

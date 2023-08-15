@@ -28,12 +28,19 @@ class UserService {
         `Пользователь с почтовым адресом ${email} уже существует`
       );
     }
+    const usLogin = await UserModel.findOne({ login });
+    if (usLogin) {
+      throw ApiError.BadRequest(
+        `Пользователь с никнэймом ${login} уже существует`
+      );
+    }
     const hashPassword = await bcrypt.hash(password, 5);
     const activationLink = uuid.v4();
 
     const user = await UserModel.create({
       login,
       email,
+      name,
       password: hashPassword,
       // activationLink,
     });
@@ -43,7 +50,7 @@ class UserService {
     //   `${process.env.API_URL}/api/activate${activationLink}`
     // );
 
-    const userDto = new UserDto(user);
+    const userDto = new UserDto({user, name});
     const tokens = tokenService.generateTokens({ ...userDto });
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
     // const profile = await ProfileModel.findOne({ user: userDto.id });
@@ -69,7 +76,7 @@ class UserService {
       purpose,
       targetHeight,
       targetWeight,
-      name,
+      // name,
       birthDay,
     });
     const profileDto = new ProfileDto(profile);
@@ -101,12 +108,15 @@ class UserService {
     if (!isPasswordEquals) {
       throw ApiError.BadRequest("Неверный пароль");
     }
-    const userDto = new UserDto(user);
+    const profile = await ProfileModel.findOne({user: user.id})
+ 
+    const userDto = new UserDto({user, name: user.name});
+    console.log(userDto)
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
-   const profile = await ProfileModel.findOne({user: userDto.id})
+   
    const profileDto = new ProfileDto(profile);
 
     return {
@@ -131,7 +141,9 @@ class UserService {
       throw ApiError.UnauthorizedError();
     }
     const user = await UserModel.findById(userData.id);
-    const userDto = new UserDto(user);
+    const profile = await ProfileModel.findOne({user: user.id})
+ 
+    const userDto = new UserDto({user, name: user.name});
     const tokens = tokenService.generateTokens({ ...userDto });
 
     await tokenService.saveToken(userDto.id, tokens.refreshToken);
@@ -145,7 +157,9 @@ class UserService {
   async getUser(accessToken) {
     const userData = tokenService.validateAccessToken(accessToken)
     const user = await UserModel.findOne({_id: userData.id});
-    const userDto = new UserDto(user);
+    const profile = await ProfileModel.findOne({user: user.id})
+ 
+    const userDto = new UserDto({user, name: user.name});
     return userDto;
   }
 

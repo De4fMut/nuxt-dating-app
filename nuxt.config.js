@@ -70,7 +70,7 @@ module.exports = {
         scheme: 'refresh',
         token: {
           property: 'accessToken',
-          maxAge: 800,
+          maxAge: 900,
           global: true,
           // type: 'Bearer'
         },
@@ -93,11 +93,15 @@ module.exports = {
       }
     },
     redirect: {
-      login: '/main',
-      logout: '/',
+      login: '/login',
+      logout: '/login',
       // callback: '/login',
       home: '/main'
     }
+  },
+
+  router: {
+    middleware: ['auth']
   },
 
   pwa: {

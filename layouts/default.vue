@@ -15,7 +15,7 @@
       <v-icon>mdi-invert-colors</v-icon>
     </v-btn> -->
     <NavigationDrawer />
-    <v-main :class="{'mr-14': $route.name == 'main' || 'users'}">
+    <v-main :class="{'mr-14': $route.name == 'main' || $route.name == 'users'}">
       <!-- class="mr-14" -->
       <v-container fluid style="height: 100%">
         <nuxt />
@@ -90,7 +90,7 @@ export default {
   computed: {
     ...mapState(["user", "users"]),
   },
-  middleware: "auth",
+  // middleware: "auth",
 
   methods: {
     ...mapActions(["joinRoom", "leftRoom", "createUser"]),
@@ -108,10 +108,16 @@ export default {
       this.joinRoom(this.user);
       }
     },
+    refresh(){
+      this.$auth.refreshTokens()
+      setTimeout(() => this.refresh(), 14*60*1000);
+      console.log('ok')
+    }
   },
   mounted() {
+    this.refresh()
     this.fetch()
-    this.$auth.refreshTokens()
+    
   },
 };
 </script>

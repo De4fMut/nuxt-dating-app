@@ -10,6 +10,7 @@
   
       <v-text-field
       v-model="postBody.password"
+      type="password" name="password" autocomplete="on"
       :type="show ? 'text' : 'password'"
       :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
       @click:append="show = !show"

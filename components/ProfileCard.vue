@@ -8,7 +8,7 @@
       :show-arrows="false"
     >
       <v-window-item v-for="(item, i) in items" :key="i">
-        <v-img :src="item.src" width="100%" height="540px"></v-img>
+        <v-img :src="require(`@/static/users/${user.login}/0.jpg`)" width="100%" height="540px"></v-img>
       </v-window-item>
     </v-window>
     <v-row
@@ -20,7 +20,7 @@
       <v-col>
         <v-row justify="center">
           <v-col>
-            <v-card-actions class="pa-1 d-flex justify-center" style="background-color: transparent">
+            <v-card-actions v-if="items.length > 1" class="pa-1 d-flex justify-center" style="background-color: transparent">
 
 
 
@@ -49,7 +49,7 @@
                         
                       >
                         <v-card
-                          v-if="items.length > 1"
+                          
                           :color="active ? 'white' : 'rgba(255, 255, 255, 0.56)'"
                           class="d-flex align-center flex-grow-1 flex-shrink-1"
                           height="6"
@@ -75,7 +75,7 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col cols="auto" class="rounded-b-xl">
+      <v-col v-if="!admin" cols="auto" class="rounded-b-xl">
         <v-row justify="space-around">
           <v-col cols="auto">Name</v-col>
           <v-col cols="auto">
@@ -96,6 +96,17 @@
           class="rounded-b-xl"
           style="background-color: rgba(0, 0, 0, 0.56)"
         >
+        <v-row v-if="admin === true" align="center" justify="center" dense>
+            <v-col cols="auto">
+              <v-row>
+             <v-card-title>{{ user.name }}</v-card-title>
+            </v-row>
+            <v-row>
+             <v-card-text>{{ profileData.gender }}</v-card-text>
+            </v-row>
+            </v-col>
+            <v-btn block>Изменить профиль</v-btn>
+          </v-row>
           <v-row v-if="!admin" align="center" justify="center" dense>
             <v-col cols="auto" v-for="(btn, index) in btns" :key="index">
               <v-btn :class="btn.size" outlined icon :color="btn.color">
@@ -120,6 +131,8 @@
 </style>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
   data() {
     return {
@@ -151,12 +164,14 @@ export default {
         },
       },
       items: [
-        {
-          src: require("@/static/userPhoto.png"),
-        },
-        {
-          src: "https://picsum.photos/500/300?image",
-        },
+        // {
+        //   src: require("@/static/users/unknown/userPhoto.png"),
+        // },
+        // {
+          // src: require(`@/static/users/${this.user.login}/1.jpg`),
+        // },
+        // {},
+        {}
         // {
         //   src: "https://picsum.photos/500/300?image",
         // },
@@ -168,9 +183,19 @@ export default {
       onboarding: 0,
     };
   },
+  computed:{
+    ...mapGetters({
+      currentUser: 'currentUser',
+      profileData: "profileData/getProfileData",
+    })
+  },
   props:{
     admin:{
       type: Boolean,
+      required: true
+    },
+    user:{
+      type: Object,
       required: true
     }
   }

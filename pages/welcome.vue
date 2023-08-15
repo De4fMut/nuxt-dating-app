@@ -122,6 +122,7 @@ import Logo from '@/components/Logo.vue'
 import Window from '@/components/Window.vue'
 
 export default {
+  auth: 'guest',
   components:{
     AuthCard,
     Logo,

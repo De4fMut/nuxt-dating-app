@@ -10,6 +10,7 @@
     <v-text-field
       v-model="user.password"
       :counter="16"
+      type="password" name="password" autocomplete="on"
       :type="show ? 'text' : 'password'"
       :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
       @click:append="show = !show"
@@ -36,7 +37,7 @@
       <v-col>
         <v-text-field
           label="Имя"
-          v-model="profileData.name"
+          v-model="user.name"
           :rules="nameRules"
           :counter="16"
           required
