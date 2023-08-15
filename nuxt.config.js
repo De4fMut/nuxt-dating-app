@@ -125,15 +125,15 @@ module.exports = {
    */
 
   env: {
-    DB_URL: 'mongodb+srv://egorbv:elfDKKz966v0q2zf@cluster0.bmmbums.mongodb.net/?retryWrites=true&w=majority',
-    JWT_ACCESS_SECRET: 'jwt-nidga-car-cey',
-    JWT_REFRESH_SECRET: 'jwt-uogway-tortoise-cey',
-    // SMTP_HOST: process.env.SMTP_HOST,
-    // SMTP_PORT: process.env.SMTP_PORT,
-    // SMTP_USER: process.env.SMTP_USER,
-    // SMTP_PASSWORD: process.env.SMTP_PASSWORD,
-    API_URL: 'http://localhost:3000',
-    CLIENT_URL: 'http://localhost:3000',
+    DB_URL: process.env.DB_URL,
+    JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
+    JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
+    SMTP_HOST: process.env.SMTP_HOST,
+    SMTP_PORT: process.env.SMTP_PORT,
+    SMTP_USER: process.env.SMTP_USER,
+    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
+    API_URL: process.env.API_URL,
+    CLIENT_URL: process.env.CLIENT_URL,
   },
 
   build: {
