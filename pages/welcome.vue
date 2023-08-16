@@ -191,7 +191,7 @@ export default {
         if (this.tier == "dialog") {
           this.dialog = true;
         }
-      } else this.$router.push("/auth/registration");
+      } else this.$router.push("/registration");
     },
     dialogChange(value) {
       this.dialog = value;

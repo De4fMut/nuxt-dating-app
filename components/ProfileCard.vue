@@ -8,7 +8,8 @@
       :show-arrows="false"
     >
       <v-window-item v-for="(item, i) in items" :key="i">
-        <v-img :src="require(`@/static/users/${user.login}/0.jpg`)" width="100%" height="540px"></v-img>
+        <v-img v-if="admin" :src="require(`@/static/users/${user.login}/0.jpg`)" width="100%" height="540px"></v-img>
+        <v-img v-if="!admin" :src="require(`@/static/users/${currentUser.login}/0.jpg`)" width="100%" height="540px"></v-img>
       </v-window-item>
     </v-window>
     <v-row
