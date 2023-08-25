@@ -3,6 +3,8 @@ const ProfileModel = require("../models/profile-model");
 const bcrypt = require("bcryptjs");
 const uuid = require("uuid");
 
+const FileService = require('../service/file-service');
+const FileModel = require("../models/file-model");
 const mailService = require("./mail-service");
 const tokenService = require("./token-service");
 const UserDto = require("../dtos/user-dto");
@@ -50,6 +52,7 @@ class UserService {
     //   `${process.env.API_URL}/api/activate${activationLink}`
     // );
 
+    await FileService.createDir(new FileModel({user: user.id, name: ''}))
     const userDto = new UserDto({user, name});
     const tokens = tokenService.generateTokens({ ...userDto });
     await tokenService.saveToken(userDto.id, tokens.refreshToken);

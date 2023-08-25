@@ -7,10 +7,13 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const router = require("./router/index");
 const errorMiddleware = require ('./middlewares/error-middleware')
+const fileUpload = require("express-fileupload")
 
 const config = require("../nuxt.config.js");
 config.dev = process.env.NODE_ENV !== "production";
 
+
+app.use(fileUpload({}))
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(

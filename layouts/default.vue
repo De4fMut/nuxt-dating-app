@@ -15,8 +15,8 @@
       <v-icon>mdi-invert-colors</v-icon>
     </v-btn> -->
     <NavigationDrawer />
-    <v-main :class="{'mr-14': $route.name == 'main' || $route.name == 'users'}">
-      <!-- class="mr-14" -->
+    <v-main >
+      <!-- :class="{'mr-14': $route.name == 'main' || $route.name == 'users'}" -->
       <v-container fluid style="height: 100%">
         <nuxt />
       </v-container>

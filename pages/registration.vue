@@ -26,7 +26,9 @@
     >
     {{ user }}
     {{ profileData }}
-    <v-btn absolute style="bottom: 0; right: 0" nuxt to="/login" plain>Авторизоваться</v-btn> 
+    <v-btn absolute style="bottom: 0; right: 0" nuxt to="/login" plain
+      >Авторизоваться</v-btn
+    >
   </v-container>
 </template>
 
@@ -37,7 +39,7 @@ import Photos from "@/components/Photos.vue";
 import { mapActions, mapMutations } from "vuex";
 
 export default {
-  auth: 'guest',
+  auth: "guest",
   components: {
     Registration,
     Logo,
@@ -60,7 +62,7 @@ export default {
         purpose: "",
         targetHeight: "",
         targetWeight: "",
-        
+
         // typingStatus: false,
 
         birthDay: new Date(2000, 0, 2).toISOString().substr(0, 10),
@@ -82,18 +84,16 @@ export default {
           user: this.user,
           profileData: this.profileData,
         });
-        if (res.status == 200) {
-          try {
-        let response = await this.$auth.loginWith("local", {
-          data: {email: this.user.email, password: this.user.password},
-        })
-        this.createUser(response.data.user);
-        this.setProfileData(response.data.profileData)
-        rhis.$router.push('/main')
-        console.log(response);
-      } catch (err) {
-        console.log(err);
-      }
+
+        try {
+          let response = await this.$auth.loginWith("local", {
+            data: { email: this.user.email, password: this.user.password },
+          });
+          this.createUser(response.data.user);
+          this.setProfileData(response.data.profileData);
+          console.log(response);
+        } catch (err) {
+          console.log(err);
         }
       }
     },
@@ -119,7 +119,7 @@ export default {
 </script>
 
 <style scoped>
-html{
+html {
   overflow-y: scroll;
 }
 </style>

@@ -7,6 +7,7 @@ const UserSchema = new Schema({
     // ИЗМЕНИЛ МОДЕЛЬ ПОЛЬЗОВАТЕЛЯ ДОБАВИЛ ИМЯ АВАТАР
     name: {type: String, required: true},
     ava: {type: String},
+    files : [{type: Schema.Types.ObjectId, ref:'File'}],
     // 
     isActivated: {type: Boolean, default: false},
     activationLink: {type: String},

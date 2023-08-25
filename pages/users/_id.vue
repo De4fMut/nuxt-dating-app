@@ -7,7 +7,7 @@
     </v-row>
     <v-row justify="center">
       <v-col cols="auto">
-        <ProfileCard :admin="admin" :user="this.user" />
+        <ProfileCard :admin="admin" :user="currentUser" />
       </v-col>
     </v-row>
   </v-container>

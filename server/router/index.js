@@ -7,6 +7,8 @@ const router = new Router();
 const { body } = require("express-validator");
 const authMiddleware = require ('../middlewares/auth-middleware')
 
+const fileController = require('../controllers/file-controller')
+
 
 // USER
 router.post(
@@ -39,6 +41,17 @@ router.post('/createwish', wishController.createWish)
 router.post('/wish', wishController.getWish)
 router.post('/wishes', wishController.getWishes)
 router.post('/dowish', wishController.doWish)
+
+
+//File
+router.post('/files', authMiddleware, fileController.createDir)
+router.post('/files/upload', authMiddleware, fileController.uploadFile)
+router.post('/files/avatar', authMiddleware, fileController.uploadAvatar)
+router.get('/files', authMiddleware, fileController.getFiles)
+router.get('/download', authMiddleware, fileController.downloadFile)
+router.get('/search', authMiddleware, fileController.searchFile)
+router.delete('/files', authMiddleware, fileController.deleteFile)
+router.delete('/avatar', authMiddleware, fileController.deleteAvatar)
 
 
 
