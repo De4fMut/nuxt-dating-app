@@ -49,8 +49,9 @@
   <v-img
       :aspect-ratio="1"
       width="200"
-      :src="require('@/static/LOGO.png')"
+      
     >
+    <!-- :src="require('@/static/LOGO.png')" -->
   </v-img>
   
 </template>

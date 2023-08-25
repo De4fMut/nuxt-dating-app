@@ -17,14 +17,17 @@
                 :key="i"
               >
                 <v-item v-slot="{ active, toggle }">
-                  <v-img
+                  <!-- <v-img
                   :src="require(`@/static/users/${user.login}/0.jpg`)"
 
                     width="150"
                     height="150"
                     class="text-right pa-2"
                     @click="toggle"
-                  >
+                  > -->
+                  <div style="width: 150px; height: 150px; background-color: grey;">
+
+                  
                     <v-btn icon dark>
                       <v-icon>
                         {{ active ? "mdi-heart" : "mdi-heart-outline" }}
@@ -35,7 +38,8 @@
                         mdi-account
                       </v-icon>
                     </v-btn>
-                  </v-img>
+                  </div>
+                  <!-- </v-img> -->
                 </v-item>
               </v-col>
             </v-row>
